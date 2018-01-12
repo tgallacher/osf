@@ -1,0 +1,83 @@
+{
+  "name": "gh-issue-fishing",
+  "version": "0.1.0",
+  "description": "",
+  "private": true,
+  "main": "src/index.js",
+  "scripts": {
+    "start": "cross-env NODE_ENV=development webpack-dev-server --colors --host 0.0.0.0 --port 5555 --hot --inline --history-api-fallback --config webpack.dev.js --content-base public_html/",
+    "build": "cross-env NODE_ENV=production webpack --config webpack.prod.js --colors",
+    "test": "npm run test:base && npm run lint:es",
+    "test:dev": "nodemon -e js,jsx -q --exec 'npm run test:base -- --watch-extensions jsx' 2>/dev/null",
+    "test:base": "cross-env NODE_ENV=testing mocha --recursive --require babel-register --require ignore-styles src/**/*.spec.js",
+    "install-typed": "flow-typed install",
+    "lint": "npm run lint:es && npm run lint:flow",
+    "lint:es": "eslint -c .eslintrc.json --ext '.js,.jsx' src/",
+    "lint:flow": "flow status"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tgallacher/gh-issue-fishing.git"
+  },
+  "keywords": [
+    "react",
+    "spa",
+    "help wanted"
+  ],
+  "author": "Tom Gallacher",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tgallacher/gh-issue-fishing/issues"
+  },
+  "homepage": "https://github.com/tgallacher/gh-issue-fishing#readme",
+  "dependencies": {
+    "glamor": "^2.20.40",
+    "glamorous": "^4.11.0",
+    "react": "^16.1.1",
+    "react-dom": "^16.0.0",
+    "react-redux": "^5.0.4",
+    "react-router": "^4.1.1",
+    "react-router-dom": "^4.1.1",
+    "redux": "^3.6.0",
+    "redux-saga": "^0.16.0",
+    "reselect": "^3.0.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.24.1",
+    "babel-eslint": "^7.1.1",
+    "babel-loader": "^6.2.5",
+    "babel-plugin-module-resolver": "^3.0.0",
+    "babel-plugin-transform-flow-strip-types": "^6.14.0",
+    "babel-plugin-transform-object-rest-spread": "^6.16.0",
+    "babel-polyfill": "^6.23.0",
+    "babel-preset-env": "^1.3.3",
+    "babel-preset-flow": "^6.23.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "babel-register": "^6.24.1",
+    "chai": "^4.0.0",
+    "cross-env": "^5.0.0",
+    "enzyme": ">=2.7.1",
+    "eslint": ">=3.8.1",
+    "eslint-loader": "^1.6.0",
+    "eslint-plugin-flowtype": "^2.30.0",
+    "eslint-plugin-react": ">=6.4.1",
+    "eslint-plugin-redux-saga": ">=0.3.0",
+    "extract-text-webpack-plugin": "^2.1.0",
+    "fbjs": "^0.8.16",
+    "flow-bin": "^0.61.0",
+    "flow-typed": "^2.0.0",
+    "ignore-styles": "^5.0.1",
+    "jsdom": "^10.1.0",
+    "jsdom-global": "3.0.2",
+    "mocha": "^4.0.0",
+    "nodemon": "^1.11.0",
+    "react-hot-loader": "^3.0.0-beta.6",
+    "react-test-renderer": ">=15.5.4",
+    "sinon": "^2.1.0",
+    "url-loader": "^0.6.2",
+    "webpack": "^3.0.0",
+    "webpack-dev-server": "^2.9.0",
+    "webpack-merge": "^4.1.1"
+  }
+}

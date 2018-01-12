@@ -1,0 +1,34 @@
+{
+    "presets": [
+        ["env", {
+          "modules": false,
+          "targets": {
+            "browsers": ["last 2 versions", "ie >= 10"]
+          }
+        }],
+        "stage-0",
+        "react",
+        "flow"
+    ],
+    "plugins": [
+        "transform-flow-strip-types",
+        "transform-object-rest-spread"
+    ],
+    "env": {
+        "development": {
+            "plugins": [
+                "react-hot-loader/babel"
+            ]
+        },
+        "testing": {
+            "presets": [
+                "env"
+            ],
+            "plugins": [
+                ["module-resolver", {
+                    "root": ["./src"]
+                }]
+            ]
+        }
+    }
+}

@@ -1,0 +1,112 @@
+{
+    "parser": "babel-eslint",
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:flowtype/recommended"
+    ],
+    "plugins": [
+        "react",
+        "flowtype",
+        "redux-saga"
+    ],
+     "parserOptions": {
+        "ecmaVersion": 8,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true,
+            "experimentalObjectRestSpread": true
+        }
+    },
+    "env": {
+        "browser": true,
+        "commonjs": true,
+        "mocha": true,
+        "es6": true,
+        "node": true
+    },
+    "settings": {
+        "flowtype": {
+            "onlyFilesWithFlowAnnotation": true
+        },
+        "import/resolver": {
+            "babel-module": {}
+        }
+    },
+    "rules": {
+        "no-redeclare": "off",
+        "no-template-curly-in-string": "error",
+        "no-unsafe-negation": "error",
+        "array-bracket-spacing": ["error", "never"],
+        "block-spacing": "error",
+        "brace-style": ["error", "stroustrup", { "allowSingleLine": true }],
+        "comma-dangle": ["error", "never"],
+        "comma-spacing": ["error", { "before": false, "after": true }],
+        "computed-property-spacing": ["error", "never"],
+        "eol-last": ["error", "always"],
+        "func-call-spacing": ["error", "never"],
+        "func-style": ["error", "expression"],
+        "indent": ["error", 4, {
+            "VariableDeclarator": { "var": 1, "let": 1, "const": 1},
+            "SwitchCase": 1
+        }],
+        "key-spacing": ["error", { "beforeColon": false, "afterColon": true }],
+        "keyword-spacing": ["error", {
+            "before": false,
+            "after": true,
+            "overrides": {
+                "as": {"before": true},
+                "if": {"after": false},
+                "for": {"after": false},
+                "from": {"before": true},
+                "else": {"after": false},
+                "switch": {"after": false}
+            }
+        }],
+        "new-cap": ["error", { "newIsCap": true, "capIsNew": true }],
+        "new-parens": "error",
+        "newline-before-return": "error",
+        "no-lonely-if": "error",
+        "no-trailing-spaces": "error",
+        "no-unneeded-ternary": "error",
+        "quotes": ["error", "single", { "avoidEscape": true }],
+        "space-before-blocks": ["error", "never"],
+        "space-before-function-paren": ["error", {
+            "anonymous": "never",
+            "named": "never",
+            "asyncArrow": "always"
+        }],
+        "arrow-parens": ["error", "as-needed"],
+        "generator-star-spacing": ["error", "after"],
+        "no-duplicate-imports": "error",
+        "no-useless-computed-key": "error",
+        "no-var": "error",
+        "object-shorthand": ["error", "always"],
+        "prefer-const": ["error", {"ignoreReadBeforeAssign": true}],
+        "rest-spread-spacing": ["error"],
+        "no-case-declarations": "off",
+        "no-console": "off",
+        "no-extra-boolean-cast": "off",
+        "flowtype/boolean-style": [2, "boolean"],
+        "flowtype/define-flow-type": 1,
+        "flowtype/delimiter-dangle": [2, "never"],
+        "flowtype/generic-spacing": [2, "never"],
+        "flowtype/no-primitive-constructor-types": 2,
+        "flowtype/no-weak-types": "off",
+        "flowtype/object-type-delimiter": [2, "comma"],
+        "flowtype/require-parameter-type": 2,
+        "flowtype/require-return-type": [2, "always", {
+            "annotateUndefined": "never",
+            "excludeArrowFunctions": "expressionsOnly"
+        }],
+        "flowtype/require-valid-file-annotation": 2,
+        "flowtype/semi": [2, "always"],
+        "flowtype/space-after-type-colon": [2, "always"],
+        "flowtype/space-before-generic-bracket": [ 2, "never"],
+        "flowtype/space-before-type-colon": [2, "never"],
+        "flowtype/type-id-match": [2, "^([A-Z][\\w]+)$"],
+        "flowtype/union-intersection-spacing": [2, "always"],
+        "flowtype/use-flow-type": 1,
+        "flowtype/valid-syntax": 1
+    }
+}

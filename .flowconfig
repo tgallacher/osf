@@ -1,0 +1,14 @@
+[ignore]
+node_modules
+
+[include]
+
+[libs]
+node_modules/@nvdmo-emea/rds-sdk/types
+flow-typed/npm
+flowtypes
+
+[options]
+module.system.node.resolve_dirname=node_modules
+module.system.node.resolve_dirname=src
+module.name_mapper='.*\.s?css$' -> 'css-module-flow'
