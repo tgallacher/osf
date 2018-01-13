@@ -2,6 +2,7 @@ import { assert } from 'chai';
 
 import reducer, {
     defaultState,
+    getStarredRepos,
     getStarredReposComplete
 } from '../ducks';
 
@@ -39,6 +40,16 @@ describe('repos.reducer', () => {
         const state = reducer(defaultState, getStarredReposComplete(new Error('Some API error'), true));
 
         assert.isArray(state);
+        assert.lengthOf(state, 0, 'State should be initialised to an empty array');
+    });
+
+    it('resets the state when a new get starred repos request is made', () => {
+        const exRepoAPIResp = [{id: 1, name: 'bar', full_name: 'foo/bar'}];
+        let state = reducer(defaultState, getStarredReposComplete(exRepoAPIResp));
+
+        assert.lengthOf(state, 1, 'State should only contain a single repo object');
+
+        state = reducer(state, getStarredRepos());
         assert.lengthOf(state, 0, 'State should be initialised to an empty array');
     });
 });

@@ -1,6 +1,6 @@
 // @flow
 
-export type State = Array<Object>;
+export type State = Object[];
 
 export const defaultState = [];
 
@@ -39,6 +39,8 @@ export default (prevState: State = defaultState, action: FSAModel): State => {
     }
 
     switch(action.type){
+        case REPOS_GET_STARRED_REQUEST:
+            return defaultState;
         case REPOS_GET_STARRED_COMPLETE:
             return prevState.concat(data);
     }
