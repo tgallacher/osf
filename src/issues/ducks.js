@@ -10,6 +10,7 @@ export const defaultState: State = {};
 //
 // ACTION CONSTANTS
 //
+//
 
 export const ISSUES_GET_STARRED_REQUEST = 'ISSUES.GET.STARRED.REQUEST';
 export const ISSUES_GET_STARRED_COMPLETE = 'ISSUES.GET.STARRED.COMPLETE';
@@ -18,8 +19,11 @@ export const ISSUES_GET_STARRED_COMPLETE = 'ISSUES.GET.STARRED.COMPLETE';
 // ACTION CREATORS
 //
 
-export const getRepoIssues = (): FSAModel => ({
-    type: ISSUES_GET_STARRED_REQUEST
+export const getRepoIssues = (repoName: string): FSAModel => ({
+    type: ISSUES_GET_STARRED_REQUEST,
+    payload: {
+        repoName
+    }
 });
 
 export const getRepoIssuesComplete = (repoName: string, data: Array<Object> | Error, error?: boolean = false): FSAModel => ({
