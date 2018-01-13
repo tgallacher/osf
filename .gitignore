@@ -1,3 +1,6 @@
+# Temp disable package lock as it can cause a bug with npm 8+
+package-lock.*
+
 .DS_Store
 # Logs
 logs
