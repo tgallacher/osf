@@ -7,7 +7,7 @@ import App from 'scenes';
 const render = Component => {
     ReactDOM.render(
         <Component />
-        , document.getElementById('rds')
+        , document.getElementById('react-root')
     );
 }
 
