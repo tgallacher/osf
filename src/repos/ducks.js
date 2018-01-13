@@ -15,8 +15,11 @@ export const REPOS_GET_STARRED_COMPLETE = 'REPOS.GET.STARRED.COMPLETE';
 // ACTION CREATORS
 //
 
-export const getStarredRepos = (): FSAModel => ({
-    type: REPOS_GET_STARRED_REQUEST
+export const getStarredRepos = (username: string): FSAModel => ({
+    type: REPOS_GET_STARRED_REQUEST,
+    payload: {
+        username
+    }
 });
 
 export const getStarredReposComplete = (data: Array<Object> | Error, error?: boolean = false): FSAModel => ({
