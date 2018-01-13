@@ -6,7 +6,7 @@ node_modules
 [libs]
 node_modules/@nvdmo-emea/rds-sdk/types
 flow-typed/npm
-flowtypes
+flowtypes.js
 
 [options]
 module.system.node.resolve_dirname=node_modules
