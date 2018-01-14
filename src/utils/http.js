@@ -11,7 +11,7 @@ const defHeaders = {
  *
  * @param {Response} resp - HTTP response object
  * @returns {Object} Http response body
- * @throws {RDSError} If RDS returns an error
+ * @throws {Error} If HTTP error code is encountered
  */
 const checkForHttpErrorsAndThrow = async (resp: Object): Promise<any> => {
     const respData = await resp.json();
@@ -28,10 +28,10 @@ const checkForHttpErrorsAndThrow = async (resp: Object): Promise<any> => {
 /**
  * Perform a GET request
  *
- * @param  {string} endpoint - RDS URI endpoint
+ * @param  {string} url - API url
  * @param  {Object} headers -  Optional HTTP headers to send with request
  * @returns {Promise} ES6 thenable
- * @throws {RDSError} If RDS returns an error
+ * @throws {Error} If upstream API returns an error code
  * @since 1.0.0
  * @example
  * let data = requests.get('/coupons/coupon/XXXX-XXXX-XXXX-XXXX').then( resp => resp );
