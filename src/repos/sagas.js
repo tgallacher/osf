@@ -1,5 +1,5 @@
 /* global __PRODUCTION__ */
-import { takeLatest, call, put } from 'redux-saga/effects';
+import { takeLatest, call, put, all } from 'redux-saga/effects';
 
 import {
     getStarredReposComplete,
@@ -25,9 +25,9 @@ export const getStarredReposSaga = function* (action){
         // @TODO: Queue after 5 repos to prevent hitting the API limit
         if(Array.isArray(starredRepos) && starredRepos.length > 0){
             // Only take the first 5 repos
-            yield starredRepos.slice(0, 4).map(
+            yield all(starredRepos.slice(0, 4).map(
                 ({ full_name: repoName }) =>  put(getRepoIssues(repoName))
-            );
+            ));
         }
 
         yield put(getStarredReposComplete(starredRepos));
