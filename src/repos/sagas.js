@@ -1,5 +1,10 @@
 /* global __PRODUCTION__ */
-import { takeLatest, call, put, all } from 'redux-saga/effects';
+import {
+    takeLatest,
+    call,
+    put,
+    all
+} from 'redux-saga/effects';
 
 import {
     getStarredReposComplete,
@@ -7,6 +12,7 @@ import {
 } from './ducks';
 import { getRepoIssues } from 'issues/ducks';
 import { get } from 'utils/http';
+import { QUEUE_MIN_THRESHOLD } from 'config/constants';
 
 /**
  * Fetch the details of a given user's starred repositories
@@ -24,8 +30,7 @@ export const getStarredReposSaga = function* (action){
 
         // @TODO: Queue after 5 repos to prevent hitting the API limit
         if(Array.isArray(starredRepos) && starredRepos.length > 0){
-            // Only take the first 5 repos
-            yield all(starredRepos.slice(0, 4).map(
+            yield all(starredRepos.slice(0, QUEUE_MIN_THRESHOLD - 1).map(
                 ({ full_name: repoName }) =>  put(getRepoIssues(repoName))
             ));
         }

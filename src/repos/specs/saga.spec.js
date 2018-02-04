@@ -4,9 +4,12 @@ import { expectSaga } from 'redux-saga-test-plan';
 import * as matchers from 'redux-saga-test-plan/matchers';
 import { throwError } from 'redux-saga-test-plan/providers';
 
+// import { QUEUE_MIN_THRESHOLD } from 'config/constatns';
 import { get } from 'utils/http';
 import { getStarredReposSaga } from '../sagas';
-import { getStarredReposComplete } from '../ducks';
+import {
+    getStarredReposComplete
+} from '../ducks';
 
 describe('repos.saga', () => {
     it('makes the basic request', () => {
@@ -20,7 +23,7 @@ describe('repos.saga', () => {
 
         return expectSaga(getStarredReposSaga, testAction)
             .provide([
-                [matchers.call.fn(get), fakeAPIResp]
+                [matchers.call.fn(get), fakeAPIResp]  // get Starred repos
             ])
             .put(getStarredReposComplete(fakeAPIResp))
             .run();
@@ -45,9 +48,9 @@ describe('repos.saga', () => {
 
         return expectSaga(getStarredReposSaga, testAction)
             .provide([
-                [matchers.call.fn(get), throwError(err)]
+                [matchers.call.fn(get), throwError(err)]     // get Starred repos
             ])
-            .not.call.fn(all)                               // Goes straight to error handler + doesn't make sepaerate requests
+            .not.call.fn(all)                                // Goes straight to error handler + doesn't make sepaerate requests
             .put(getStarredReposComplete(err, true))
             .run();
     });
