@@ -23,16 +23,23 @@ export const getStarredReposSaga = function* (action){
     const { payload: { username } = {} } = action;
 
     try {
-        if( ! username)
+        if( ! username){
             return;
+        }
 
         const starredRepos = yield call(get, `https://api.github.com/users/${username}/starred`);
 
         // @TODO: Queue after 5 repos to prevent hitting the API limit
         if(Array.isArray(starredRepos) && starredRepos.length > 0){
-            yield all(starredRepos.slice(0, QUEUE_MIN_THRESHOLD - 1).map(
-                ({ full_name: repoName }) =>  put(getRepoIssues(repoName))
-            ));
+            yield all(
+                starredRepos
+                    .filter( repo => ! repo.archived )
+                    .filter( repo => repo.has_issues )
+                    .slice(0, QUEUE_MIN_THRESHOLD - 1)
+                    .map(
+                        ({ full_name: repoName }) =>  put(getRepoIssues(repoName))
+                    )
+            );
         }
 
         yield put(getStarredReposComplete(starredRepos));
