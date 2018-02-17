@@ -1,3 +1,4 @@
+/* eslint-disable */
 /* global __PRODUCTION__ */
 import { takeEvery, call, put } from 'redux-saga/effects';
 
@@ -31,5 +32,5 @@ export const getRepoIssuesSaga = function* (action){
 }
 
 export default function* (){
-    yield takeEvery(ISSUES_GET_STARRED_REQUEST, getRepoIssuesSaga);
+    // yield takeEvery(ISSUES_GET_STARRED_REQUEST, getRepoIssuesSaga);
 }

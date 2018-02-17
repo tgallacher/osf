@@ -6,7 +6,7 @@ import reducer, {
 } from '../ducks';
 import { getStarredRepos } from 'repos/ducks';
 
-describe('repos.reducer', () => {
+describe('issues.reducer', () => {
     it('returns the correct initial state', () => {
         const state = reducer(undefined, {type: '@@REDUX/INIT'});
 

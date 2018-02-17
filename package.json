@@ -1,5 +1,5 @@
 {
-  "name": "gh-issue-fishing",
+  "name": "osf",
   "version": "0.1.0",
   "description": "",
   "private": true,
@@ -32,8 +32,9 @@
   "homepage": "https://github.com/tgallacher/gh-issue-fishing#readme",
   "dependencies": {
     "glamor": "^2.20.40",
-    "glamorous": "^4.11.0",
+    "glamorous": "^4.11.4",
     "isomorphic-fetch": "^2.2.1",
+    "moment": "^2.20.1",
     "react": "^16.1.1",
     "react-dom": "^16.0.0",
     "react-redux": "^5.0.4",
@@ -41,7 +42,8 @@
     "react-router-dom": "^4.1.1",
     "redux": "^3.6.0",
     "redux-saga": "^0.16.0",
-    "reselect": "^3.0.0"
+    "reselect": "^3.0.0",
+    "semantic-ui-react": "^0.77.2"
   },
   "devDependencies": {
     "babel-core": "^6.24.1",
