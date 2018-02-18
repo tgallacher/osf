@@ -1,5 +1,5 @@
-// flow-typed signature: 5ebfab521cce28c691a4fdfe8992f4e2
-// flow-typed version: da30fe6876/chai_v4.x.x/flow_>=v0.25.0
+// flow-typed signature: 308b923163d321c5d8ef18be2a25e903
+// flow-typed version: 37b0393aaf/chai_v4.x.x/flow_>=v0.25.0
 
 declare module "chai" {
   declare type ExpectChain<T> = {
@@ -36,8 +36,12 @@ declare module "chai" {
     equals: (value: T) => ExpectChain<T>,
 
     above: (value: T & number) => ExpectChain<T>,
+    gt: (value: T & number) => ExpectChain<T>,
+    greaterThan: (value: T & number) => ExpectChain<T>,
     least: (value: T & number) => ExpectChain<T>,
     below: (value: T & number) => ExpectChain<T>,
+    lessThan: (value: T & number) => ExpectChain<T>,
+    lt: (value: T & number) => ExpectChain<T>,
     most: (value: T & number) => ExpectChain<T>,
     within: (start: T & number, finish: T & number) => ExpectChain<T>,
 
