@@ -15,3 +15,5 @@ declare type FSAModel = {
     error?: boolean,
     meta?: ?Object
 };
+
+declare type __PRODUCTION__ = boolean;
