@@ -1,6 +1,15 @@
 // @flow
 import fetch from 'isomorphic-fetch';
 
+/**
+ * Standard response structure for any HTTP request
+ * @type {Object}
+ */
+type APIObject = {
+    data: any,
+    headers: Headers
+};
+
 const defHeaders = {
     'Content-Type': 'application/json'
 }
@@ -13,11 +22,12 @@ const defHeaders = {
  * @returns {Object} Http response body
  * @throws {Error} If HTTP error code is encountered
  */
-const checkForHttpErrorsAndThrow = async (resp: Object): Promise<any> => {
+const parseDataAndCheckForHttpErrorsWithThrow = async (resp: Object): Promise<any> => {
     const respData = await resp.json();
 
     if( resp.status >= 400 ){
-        const msg = respData.message || resp.statusText; // Github will put an error message in the returned payload
+        // Github will put an error message in the returned payload
+        const msg = respData.message || resp.statusText;
 
         throw new Error(`${resp.status} Error: ${msg}`);
     }
@@ -36,13 +46,17 @@ const checkForHttpErrorsAndThrow = async (resp: Object): Promise<any> => {
  * @example
  * let data = requests.get('/coupons/coupon/XXXX-XXXX-XXXX-XXXX').then( resp => resp );
  */
-export const get = async (url: string, headers: Object = {}): Promise<any> => {
+export const get = async (url: string, headers: Object = {}): Promise<APIObject> => {
     const options = {
         method: 'GET',
         headers: { ...defHeaders, ...headers }
     };
 
     const resp = await fetch(url, options);
+    const data = await parseDataAndCheckForHttpErrorsWithThrow(resp);
 
-    return await checkForHttpErrorsAndThrow(resp);
+    return {
+        data,
+        headers: resp.headers
+    };
 }
