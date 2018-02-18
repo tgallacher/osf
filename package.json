@@ -10,7 +10,7 @@
     "test": "npm run test:base && npm run lint:es",
     "test:dev": "nodemon -e js,jsx -q --exec 'npm run test:base -- --watch-extensions jsx' 2>/dev/null",
     "test:base": "cross-env NODE_ENV=testing mocha --recursive --require babel-register --require ignore-styles --require babel-polyfill src/**/*.spec.js",
-    "install-typed": "flow-typed install",
+    "flow:install-typed": "flow-typed install",
     "lint": "npm run lint:es && npm run lint:flow",
     "lint:es": "eslint -c .eslintrc.json --ext '.js,.jsx' src/",
     "lint:flow": "flow status"
@@ -41,6 +41,7 @@
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
     "redux": "^3.6.0",
+    "redux-mock-store": "^1.5.1",
     "redux-saga": "^0.16.0",
     "reselect": "^3.0.0",
     "semantic-ui-react": "^0.77.2"

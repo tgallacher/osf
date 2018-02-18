@@ -9,6 +9,7 @@ import createSagaMiddleware from 'redux-saga';
 
 import rootSaga from './sagas';
 import reducers from './reducers';
+import apiLimitMiddleware from 'middleware/apiRateLimit';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -16,7 +17,7 @@ const composeEnhancers = __PRODUCTION__
     ? compose
     : window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const storeEnhancers = composeEnhancers(
-    applyMiddleware(sagaMiddleware)
+    applyMiddleware(sagaMiddleware, apiLimitMiddleware)
 );
 
 const store = createStore(
