@@ -1,3 +1,4 @@
+// @flow
 /* global __PRODUCTION__ */
 import {
     takeLatest,
@@ -5,21 +6,25 @@ import {
     put,
     all
 } from 'redux-saga/effects';
+import { type Saga } from 'redux-saga';
 
 import {
     getStarredReposComplete,
-    REPOS_GET_STARRED_REQUEST
+    REPOS_GET_STARRED_REQUEST,
+    type ExpectedApiResponse
 } from './ducks';
 import { getRepoIssues } from 'issues/ducks';
 import { get } from 'utils/http';
 import { QUEUE_MIN_THRESHOLD } from 'config/constants';
+
+
 
 /**
  * Fetch the details of a given user's starred repositories
  *
  * @param {FSAModel} action - Redux action object
  */
-export const getStarredReposSaga = function* (action){
+export const getStarredReposSaga = function* (action: FSAModel): Saga<void>{
     const { payload: { username } = {} } = action;
 
     try {
@@ -27,22 +32,23 @@ export const getStarredReposSaga = function* (action){
             return;
         }
 
-        const starredRepos = yield call(get, `https://api.github.com/users/${username}/starred`);
+        const resp: ExpectedApiResponse = yield call(get, `https://api.github.com/users/${username}/starred`);
+        const starredRepos = resp.data;
 
         // @TODO: Queue after 5 repos to prevent hitting the API limit
         if(Array.isArray(starredRepos) && starredRepos.length > 0){
             yield all(
                 starredRepos
-                    .filter( repo => ! repo.archived )
-                    .filter( repo => repo.has_issues )
+                    .filter( (repo: Object) => ! repo.archived )
+                    .filter( (repo: Object) => repo.has_issues )
                     .slice(0, QUEUE_MIN_THRESHOLD - 1)
                     .map(
-                        ({ full_name: repoName }) =>  put(getRepoIssues(repoName))
+                        ({ full_name: repoName }: Object) =>  put(getRepoIssues(repoName))
                     )
             );
         }
 
-        yield put(getStarredReposComplete(starredRepos));
+        yield put(getStarredReposComplete(resp));
     }
     catch (error){
         yield put(getStarredReposComplete(error, true));
@@ -50,6 +56,6 @@ export const getStarredReposSaga = function* (action){
     }
 }
 
-export default function* (){
+export default function* (): Saga<void>{
     yield takeLatest(REPOS_GET_STARRED_REQUEST, getStarredReposSaga);
 }

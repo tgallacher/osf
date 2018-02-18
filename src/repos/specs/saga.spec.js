@@ -17,15 +17,20 @@ describe('repos.saga', () => {
             { full_name: 'foobar' }
         ];
 
+        const mockRespObj = {
+            data: fakeAPIResp,
+            headers: new Headers()
+        };
+
         const testAction = {
             payload: { username: 'foobar' }
         };
 
         return expectSaga(getStarredReposSaga, testAction)
             .provide([
-                [matchers.call.fn(get), fakeAPIResp]  // get Starred repos
+                [matchers.call.fn(get), mockRespObj]  // get Starred repos
             ])
-            .put(getStarredReposComplete(fakeAPIResp))
+            .put(getStarredReposComplete(mockRespObj))
             .run();
     });
 

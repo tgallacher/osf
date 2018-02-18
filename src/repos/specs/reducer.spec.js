@@ -16,7 +16,9 @@ describe('repos.reducer', () => {
 
     it('stores a return repository object correctly', () => {
         const exRepoAPIResp = [{id: 1, name: 'bar', full_name: 'foo/bar'}];
-        const state = reducer(defaultState, getStarredReposComplete(exRepoAPIResp));
+        const state = reducer(defaultState, getStarredReposComplete({
+            data: exRepoAPIResp
+        }));
 
         assert.isArray(state);
         assert.lengthOf(state, 1, 'State should only contain a single repo object');
@@ -25,10 +27,14 @@ describe('repos.reducer', () => {
 
     it('adds an addtional repo object to state correctly', () => {
         const exRepoAPIResp = [{id: 1, name: 'bar', full_name: 'foo/bar'}];
-        let state = reducer(defaultState, getStarredReposComplete(exRepoAPIResp));
+        let state = reducer(defaultState, getStarredReposComplete({
+            data: exRepoAPIResp
+        }));
 
         const exRepoAPIResp2 = [{id: 2, name: 'baz', full_name: 'bar/baz'}];
-        state = reducer(state, getStarredReposComplete(exRepoAPIResp2));
+        state = reducer(state, getStarredReposComplete({
+            data: exRepoAPIResp2
+        }));
 
         assert.isArray(state);
         assert.lengthOf(state, 2, 'State should contain all received repo data');
@@ -45,7 +51,9 @@ describe('repos.reducer', () => {
 
     it('resets the state when a new get starred repos request is made', () => {
         const exRepoAPIResp = [{id: 1, name: 'bar', full_name: 'foo/bar'}];
-        let state = reducer(defaultState, getStarredReposComplete(exRepoAPIResp));
+        let state = reducer(defaultState, getStarredReposComplete({
+            data: exRepoAPIResp
+        }));
 
         assert.lengthOf(state, 1, 'State should only contain a single repo object');
 

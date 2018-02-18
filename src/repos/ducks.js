@@ -1,8 +1,11 @@
 // @flow
 
 export type State = Object[];
-
-export const defaultState = [];
+export type ExpectedApiResponse = {
+    data: Array<Object>,
+    headers: Headers
+};
+export const defaultState: State = [];
 
 //
 // ACTION CONSTANTS
@@ -22,7 +25,7 @@ export const getStarredRepos = (username: string): FSAModel => ({
     }
 });
 
-export const getStarredReposComplete = (data: Array<Object> | Error, error?: boolean = false): FSAModel => ({
+export const getStarredReposComplete = (data: ExpectedApiResponse | Error, error?: boolean = false): FSAModel => ({
     type: REPOS_GET_STARRED_COMPLETE,
     payload: {
         data
@@ -35,7 +38,7 @@ export const getStarredReposComplete = (data: Array<Object> | Error, error?: boo
 //
 
 export default (prevState: State = defaultState, action: FSAModel): State => {
-    const { payload: { data = [] } = {}, error } = action;
+    const { payload: { data = {} } = {}, error } = action;
 
     if(error){
         return defaultState;
@@ -45,7 +48,7 @@ export default (prevState: State = defaultState, action: FSAModel): State => {
         case REPOS_GET_STARRED_REQUEST:
             return defaultState;
         case REPOS_GET_STARRED_COMPLETE:
-            return prevState.concat(data);
+            return prevState.concat(data.data); // discard the Headers info
     }
 
     return prevState;
