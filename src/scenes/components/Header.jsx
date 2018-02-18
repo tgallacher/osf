@@ -41,8 +41,6 @@ class AppHeader extends Component<Props>{
         if(event.key !== 'Enter' || ! username)
             return;
 
-        console.log('yeee ha')
-
         this.props.dispatch(getStarredRepos(username));
     }
 
