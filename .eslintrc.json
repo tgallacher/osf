@@ -60,7 +60,8 @@
                 "for": {"after": false},
                 "from": {"before": true},
                 "else": {"after": false},
-                "switch": {"after": false}
+                "switch": {"after": false},
+                "of": {"before": true}
             }
         }],
         "new-cap": ["error", { "newIsCap": true, "capIsNew": true }],
