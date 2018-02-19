@@ -1,14 +1,16 @@
 // @flow
 import React, { Component } from 'react';
-import { Grid } from 'semantic-ui-react';
+import { Grid, Dimmer, Loader } from 'semantic-ui-react';
 import glamorous from 'glamorous';
 import { connect } from 'react-redux';
 
 import RepoIssues from './RepoIssues';
+import { isLoading } from 'ui/selectors';
 
 type Props = {
     repos: Array<Object>,
-    issues: Object
+    issues: Object,
+    loading: boolean
 };
 
 const Container = glamorous(Grid)({
@@ -19,6 +21,9 @@ class MainContent extends Component<Props, any>{
     render(): any{
         return (
             <main id="main-content">
+                <Dimmer active={this.props.loading}>
+                    <Loader size='massive'>Loading</Loader>
+                </Dimmer>
                 <Container container doubling columns={2}>
                     <Grid.Column width={12}>
                         {
@@ -43,7 +48,8 @@ class MainContent extends Component<Props, any>{
 
 const mapStateToProps = (state: Object) => ({
     repos: state.repos,
-    issues: state.issues
+    issues: state.issues,
+    loading: isLoading(state)
 });
 
 // $FlowFixMe

@@ -12,7 +12,7 @@ import glamorous from 'glamorous';
 import { connect } from 'react-redux';
 
 import { getStarredRepos } from 'repos/ducks';
-
+import { isLoading } from 'ui/selectors';
 
 const StyledSegment = glamorous(Segment)({
     minHeight: '15em',
@@ -23,7 +23,8 @@ const StyledSegment = glamorous(Segment)({
 type Props = {
     title: string,
     placeholder?: string,
-    dispatch: Dispatch
+    dispatch: Dispatch,
+    loading: boolean
 };
 
 class AppHeader extends Component<Props>{
@@ -52,7 +53,7 @@ class AppHeader extends Component<Props>{
     }
 
     render(): Element<'header'>{
-        const { title, placeholder } = this.props;
+        const { title, placeholder, loading } = this.props;
 
         return (
             <header>
@@ -77,7 +78,7 @@ class AppHeader extends Component<Props>{
                             onChange={ this.handleChange }
                             placeholder={ placeholder }
                             iconPosition='left'
-                            loading={false}
+                            loading={loading}
                         />
                     </Container>
                 </StyledSegment>
@@ -86,4 +87,9 @@ class AppHeader extends Component<Props>{
     }
 }
 
-export default connect()(AppHeader);
+const mapStateToProps = (state: Object) => ({
+    loading: isLoading(state)
+});
+
+// $FlowFixMe
+export default connect(mapStateToProps)(AppHeader);
