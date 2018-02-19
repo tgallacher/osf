@@ -4,6 +4,10 @@ import { REPOS_GET_STARRED_REQUEST } from 'repos/ducks';
 export type State = {
     [full_name: string]: Object[]
 };
+export type ExpectedApiResponse = {
+    data: Array<Object>,
+    headers: Headers
+};
 
 export const defaultState: State = {};
 
@@ -26,7 +30,7 @@ export const getRepoIssues = (repoName: string): FSAModel => ({
     }
 });
 
-export const getRepoIssuesComplete = (repoName: string, data: Array<Object> | Error, error?: boolean = false): FSAModel => ({
+export const getRepoIssuesComplete = (repoName: string, data: ExpectedApiResponse | Error, error?: boolean = false): FSAModel => ({
     type: ISSUES_GET_STARRED_COMPLETE,
     payload: {
         data,
@@ -40,7 +44,10 @@ export const getRepoIssuesComplete = (repoName: string, data: Array<Object> | Er
 //
 
 export default (prevState: State = defaultState, action: FSAModel): State => {
-    const { payload: { data = [], repoName } = {}, error } = action;
+    const {
+        error,
+        payload: { data = {}, repoName } = {}
+    } = action;
 
     if(error){
         return defaultState;
@@ -50,9 +57,20 @@ export default (prevState: State = defaultState, action: FSAModel): State => {
         case REPOS_GET_STARRED_REQUEST:
             return defaultState;
         case ISSUES_GET_STARRED_COMPLETE:
+
+            // Only add issues that have the right labels we are looking for.
+            // A repo might have open issues, but might not have any that have
+            // the labels we are searching for.
+            if(data.data.length == 0){
+                return prevState;
+            }
+
+            // We'll discard the API header data
             return {
                 ...prevState,
-                [repoName]: repoName in prevState ? prevState[repoName].concat(data) : data
+                [repoName]: repoName in prevState
+                    ? prevState[repoName].concat(data.data)
+                    : data.data
             }
     }
 

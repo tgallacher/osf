@@ -17,7 +17,11 @@ describe('issues.reducer', () => {
     it('stores a return repository object correctly', () => {
         const repoName = 'foo/bar';
         const exIssueAPIResp = [{id: 1, url: 'http://foo'}];
-        const state = reducer(defaultState, getRepoIssuesComplete(repoName, exIssueAPIResp));
+        const mockRespObj = {
+            data: exIssueAPIResp,
+            headers: new Headers()
+        };
+        const state = reducer(defaultState, getRepoIssuesComplete(repoName, mockRespObj));
 
         assert.isObject(state);
         assert.isArray(Object.keys(state));
@@ -29,10 +33,19 @@ describe('issues.reducer', () => {
     it('adds an addtional repo object to state correctly for the same repo request', () => {
         const repoName = 'foo/bar';
         const exIssueAPIResp = [{id: 1, url: 'http://foo'}];
-        let state = reducer(defaultState, getRepoIssuesComplete(repoName, exIssueAPIResp));
+        const mockRespObj = {
+            data: exIssueAPIResp,
+            headers: new Headers()
+        };
+
+        let state = reducer(defaultState, getRepoIssuesComplete(repoName, mockRespObj));
 
         const exIssueAPIResp2 = [{id: 2, url: 'http://bar'}];
-        state = reducer(state, getRepoIssuesComplete(repoName, exIssueAPIResp2));
+        const mockRespObj2 = {
+            data: exIssueAPIResp2,
+            headers: new Headers()
+        };
+        state = reducer(state, getRepoIssuesComplete(repoName, mockRespObj2));
 
         assert.isObject(state);
         assert.isArray(Object.keys(state));
@@ -45,11 +58,21 @@ describe('issues.reducer', () => {
     it('stores issues for more than one repo', () => {
         const repoName = 'foo/bar';
         const exIssueAPIResp = [{id: 1, url: 'http://foo'}];
-        let state = reducer(defaultState, getRepoIssuesComplete(repoName, exIssueAPIResp));
+        const mockRespObj = {
+            data: exIssueAPIResp,
+            headers: new Headers()
+        };
+
+        let state = reducer(defaultState, getRepoIssuesComplete(repoName, mockRespObj));
 
         const repoName2 = 'bar/baz';
         const exIssueAPIResp2 = [{id: 2, url: 'http://bar'}];
-        state = reducer(state, getRepoIssuesComplete(repoName2, exIssueAPIResp2));
+        const mockRespObj2 = {
+            data: exIssueAPIResp2,
+            headers: new Headers()
+        };
+
+        state = reducer(state, getRepoIssuesComplete(repoName2, mockRespObj2));
 
         assert.isObject(state);
         assert.isArray(Object.keys(state));
@@ -71,7 +94,12 @@ describe('issues.reducer', () => {
     it('resets the state when a new get starred repos request is made', () => {
         const repoName = 'foo/bar';
         const exIssueAPIResp = [{id: 1, url: 'http://foo'}];
-        let state = reducer(defaultState, getRepoIssuesComplete(repoName, exIssueAPIResp));
+        const mockRespObj = {
+            data: exIssueAPIResp,
+            headers: new Headers()
+        };
+
+        let state = reducer(defaultState, getRepoIssuesComplete(repoName, mockRespObj));
 
         assert.isObject(state);
         assert.lengthOf(Object.keys(state), 1);

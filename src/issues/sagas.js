@@ -1,10 +1,12 @@
-/* eslint-disable */
+// @flow
 /* global __PRODUCTION__ */
+import { type Saga } from 'redux-saga';
 import { takeEvery, call, put } from 'redux-saga/effects';
 
 import {
     getRepoIssuesComplete,
-    ISSUES_GET_STARRED_REQUEST
+    ISSUES_GET_STARRED_REQUEST,
+    type ExpectedApiResponse
 } from './ducks';
 import { get } from 'utils/http';
 
@@ -14,16 +16,16 @@ import { get } from 'utils/http';
  *
  * @param {FSAModel} action - Redux action object
  */
-export const getRepoIssuesSaga = function* (action){
+export const getRepoIssuesSaga = function* (action: FSAModel): Saga<void>{
     const { payload: { repoName } = {} } = action;
 
     try {
         if( ! repoName)
             return;
 
-        const repoIssues = yield call(get, `https://api.github.com/repos/${repoName}/issues?labels=help+wanted`);
+        const resp: ExpectedApiResponse = yield call(get, `https://api.github.com/repos/${repoName}/issues?labels=help+wanted`);
 
-        yield put(getRepoIssuesComplete(repoName, repoIssues));
+        yield put(getRepoIssuesComplete(repoName, resp));
     }
     catch (error){
         yield put(getRepoIssuesComplete(repoName, error, true));
@@ -31,6 +33,6 @@ export const getRepoIssuesSaga = function* (action){
     }
 }
 
-export default function* (){
-    // yield takeEvery(ISSUES_GET_STARRED_REQUEST, getRepoIssuesSaga);
+export default function* (): Saga<void>{
+    yield takeEvery(ISSUES_GET_STARRED_REQUEST, getRepoIssuesSaga);
 }
