@@ -1,26 +1,28 @@
 // @flow
 import React from 'react';
 import { Provider } from 'react-redux';
+import { css } from 'glamor';
 
 import store from 'boot/store';
-import Header from './components/Header';
-import MainContent from './components/MainContent';
-// import { getStarredRepos } from 'repos/ducks';
+import App from './components/App';
+
+css.global('blockquote', {
+    color: '#bbb',
+    borderLeft: '3px solid #bbb',
+    paddingLeft: '1em'
+});
+
+css.global('pre', {
+    background: '#fafafa',
+    padding: '1em',
+    border: '1px solid #ddd',
+    overflowX: 'auto'
+});
 
 const Root = () => (
     <Provider store={ store }>
-        <span>
-            <Header title="Enter GitHub username" placeholder="GitHub username..." />
-            <MainContent />
-        </span>
+        <App />
     </Provider>
 );
 
-
 export default Root;
-/*
-        <span>
-            <h1>Hello</h1>
-            <button onClick={ () => store.dispatch(getStarredRepos('tgallacher')) }>get</button>
-        </span>
-*/
