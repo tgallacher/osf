@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import {
-    Card,
+    Item,
     Image,
     Header,
     Icon
@@ -18,16 +18,23 @@ const UpdatedIcon = glamorous(Icon)({
     marginLeft: '.5em!important'
 });
 
-const StyledCard = glamorous(Card)({
+const StyledCard = glamorous(Item)({
     wordWrap: 'break-word',
+    borderBottom: '1px solid #ccc',
+    marginBottom: '2em',
+    paddingBottom: '2em',
     ' img': {
         maxWidth: '100%'
     }
 });
 
-const Title = glamorous.h5({
-    textDecoration: 'underline',
-    padding: '0.45em 0'
+const H = glamorous(Header)({
+    marginBottom: '1em!important',
+    marginLeft: '-3.5em!important'
+});
+
+const Content = glamorous(Item.Content)({
+    paddingLeft: '3.5em!important'
 });
 
 class MainContent extends Component<Props, any>{
@@ -36,8 +43,8 @@ class MainContent extends Component<Props, any>{
 
         return (
             <StyledCard fluid color="blue">
-                <Card.Content>
-                    <Header as='h4' title={ issue.title }>
+                <Content>
+                    <H as='h4' title={ issue.title }>
                         {
                             issue.user.avatar_url
                                 && <Image circular src={ issue.user.avatar_url } />
@@ -52,13 +59,10 @@ class MainContent extends Component<Props, any>{
                                 <UpdatedIcon name="time" />{ moment(issue.updated_at).fromNow() }
                             </Header.Subheader>
                         </Header.Content>
-                    </Header>
-                </Card.Content>
+                    </H>
 
-                <Card.Content>
-                    <Title>Description</Title>
                     <ReactMarkdown source={ issue.body || '*No description provided*' } />
-                </Card.Content>
+                </Content>
             </StyledCard>
         );
     }

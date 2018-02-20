@@ -16,7 +16,8 @@ css.global('pre', {
     background: '#fafafa',
     padding: '1em',
     border: '1px solid #ddd',
-    overflowX: 'auto'
+    overflow: 'auto',
+    maxHeight: '40em'
 });
 
 const Root = () => (
