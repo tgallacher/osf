@@ -21,7 +21,7 @@ class MainContent extends Component<Props, any>{
     render(): any{
         return (
             <main id="main-content">
-                <Dimmer active={this.props.loading}>
+                <Dimmer active={ this.props.loading }>
                     <Loader size='massive'>Loading</Loader>
                 </Dimmer>
                 <Container container doubling columns={2}>

@@ -1,5 +1,4 @@
 // @flow
-/* global __PRODUCTION__ */
 import {
     takeLatest,
     call,
@@ -27,11 +26,14 @@ import { QUEUE_MIN_THRESHOLD } from 'config/constants';
 export const getStarredReposSaga = function* (action: FSAModel): Saga<void>{
     const { payload: { username } = {} } = action;
 
-    try {
-        if( ! username){
-            return;
-        }
+    if( ! username){
+        // $FlowFixMe
+        yield put(getStarredReposComplete([]));
 
+        return;
+    }
+
+    try {
         const resp: ExpectedApiResponse = yield call(get, `https://api.github.com/users/${username}/starred`);
         const starredRepos = resp.data;
 
@@ -52,7 +54,6 @@ export const getStarredReposSaga = function* (action: FSAModel): Saga<void>{
     }
     catch (error){
         yield put(getStarredReposComplete(error, true));
-        if( ! __PRODUCTION__){ throw error; }
     }
 }
 

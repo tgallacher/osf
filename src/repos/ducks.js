@@ -22,13 +22,14 @@ export const getStarredRepos = (username: string): FSAModel => ({
     type: REPOS_GET_STARRED_REQUEST,
     payload: {
         username
-    }
+    },
+    error: false
 });
 
 export const getStarredReposComplete = (data: ExpectedApiResponse | Error, error?: boolean = false): FSAModel => ({
     type: REPOS_GET_STARRED_COMPLETE,
     payload: {
-        data
+        data: data instanceof Error ? data.message : data
     },
     error
 });

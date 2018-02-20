@@ -1,5 +1,4 @@
 // @flow
-/* global __PRODUCTION__ */
 import { type Saga } from 'redux-saga';
 import { takeEvery, call, put } from 'redux-saga/effects';
 
@@ -29,7 +28,6 @@ export const getRepoIssuesSaga = function* (action: FSAModel): Saga<void>{
     }
     catch (error){
         yield put(getRepoIssuesComplete(repoName, error, true));
-        if( ! __PRODUCTION__){ throw error; }
     }
 }
 

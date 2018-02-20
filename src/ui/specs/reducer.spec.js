@@ -3,7 +3,8 @@ import { assert } from 'chai';
 import reducer, { defaultState } from '../ducks';
 import {
     REPOS_GET_STARRED_REQUEST,
-    REPOS_GET_STARRED_COMPLETE
+    REPOS_GET_STARRED_COMPLETE,
+    getStarredReposComplete
 } from 'repos/ducks';
 import {
     ISSUES_GET_STARRED_REQUEST,
@@ -31,5 +32,25 @@ describe('ui.reducer', () => {
 
         state = reducer(defaultState, { type: ISSUES_GET_STARRED_COMPLETE });
         assert.property(state, 'requesting', 0);
+    });
+
+    it('stores the latest error', () => {
+        const msg = 'There was an error';
+        const state = reducer(defaultState, getStarredReposComplete(new Error(msg), true));
+
+        assert.property(state, 'error', msg);
+    });
+
+    it(' the latest error', () => {
+        const msg = 'There was an error';
+        let state = {
+            ...defaultState,
+            error: msg
+        };
+
+        assert.property(state, 'error', msg);
+        state = reducer(defaultState, getStarredReposComplete({}));
+
+        assert.property(state, 'error', null);
     });
 });

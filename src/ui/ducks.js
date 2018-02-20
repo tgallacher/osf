@@ -9,11 +9,13 @@ import {
 } from 'issues/ducks';
 
 export type State = {
-    requesting: number
+    requesting: number,
+    error: ?string
 };
 
 export const defaultState = {
-    requesting: 0
+    requesting: 0,
+    error: null
 };
 
 //
@@ -31,6 +33,24 @@ export const UI__TOGGLE_LOADING = 'UI.TOGGLE.IS.LOADING';
 //
 
 export default (prevUIState: State = defaultState, action: FSAModel): State => {
+    // Error-to-UI handling
+    if(prevUIState != undefined){
+        if(action.error){
+            const { payload: { data = null } = {} } = action;
+
+            prevUIState = {
+                ...prevUIState,
+                error: data // Error message
+            };
+        }
+        else{
+            prevUIState = {
+                ...prevUIState,
+                error: null
+            };
+        }
+    }
+
     switch(action.type){
         case REPOS_GET_STARRED_REQUEST:
         case ISSUES_GET_STARRED_REQUEST:

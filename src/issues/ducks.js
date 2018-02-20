@@ -27,13 +27,14 @@ export const getRepoIssues = (repoName: string): FSAModel => ({
     type: ISSUES_GET_STARRED_REQUEST,
     payload: {
         repoName
-    }
+    },
+    error: false
 });
 
 export const getRepoIssuesComplete = (repoName: string, data: ExpectedApiResponse | Error, error?: boolean = false): FSAModel => ({
     type: ISSUES_GET_STARRED_COMPLETE,
     payload: {
-        data,
+        data: data instanceof Error ? data.message : data,
         repoName
     },
     error
