@@ -15,7 +15,7 @@ type Props = {
 };
 
 const IconWithText = glamorous(Icon)({
-    marginRight: '0'
+    marginRight: '0.1em!important'
 });
 
 const UpdatedIcon = glamorous(IconWithText)({

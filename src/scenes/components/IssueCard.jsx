@@ -19,7 +19,10 @@ const UpdatedIcon = glamorous(Icon)({
 });
 
 const StyledCard = glamorous(Card)({
-    wordWrap: 'break-word'
+    wordWrap: 'break-word',
+    ' img': {
+        maxWidth: '100%'
+    }
 });
 
 const Title = glamorous.h5({
