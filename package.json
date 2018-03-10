@@ -13,7 +13,8 @@
     "flow:install-typed": "flow-typed install",
     "lint": "npm run lint:es && npm run lint:flow",
     "lint:es": "eslint -c .eslintrc.json --ext '.js,.jsx' src/",
-    "lint:flow": "flow status"
+    "lint:flow": "flow status",
+    "todos:show": "leasot -x src/"
   },
   "repository": {
     "type": "git",
