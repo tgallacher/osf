@@ -42,7 +42,7 @@ class MainContent extends Component<Props, any>{
         const { issue } = this.props;
 
         return (
-            <StyledCard fluid color="blue">
+            <StyledCard color="blue">
                 <Content>
                     <H as='h4' title={ issue.title }>
                         {
