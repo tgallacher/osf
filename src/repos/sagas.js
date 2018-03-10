@@ -13,6 +13,7 @@ import {
     type ExpectedApiResponse
 } from './ducks';
 import { getRepoIssues } from 'issues/ducks';
+import { getUser } from 'user/ducks';
 import { get } from 'utils/http';
 import { QUEUE_MIN_THRESHOLD } from 'config/constants';
 
@@ -34,6 +35,8 @@ export const getStarredReposSaga = function* (action: FSAModel): Saga<void>{
     }
 
     try {
+        yield put(getUser(username));
+
         const resp: ExpectedApiResponse = yield call(get, `https://api.github.com/users/${username}/starred`);
         const starredRepos = resp.data;
 

@@ -39,6 +39,7 @@ const RepoCard = ({ repo = {} }: Props) => (
                     </a>
                     <Header.Subheader as="span">
                         <span title="Repository Owner">
+                            { /* @todo Update to be a link to html in new tab: repo.owner.html_url */ }
                             <IconWithText name="user circle" />{ repo.owner.login }
                         </span>
                         <span title="Last Updated">

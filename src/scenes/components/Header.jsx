@@ -11,8 +11,10 @@ import {
 import glamorous from 'glamorous';
 import { connect } from 'react-redux';
 
+import { hasUser } from 'user/selectors';
 import { getStarredRepos } from 'repos/ducks';
 import { isLoading } from 'ui/selectors';
+import UserInfoBar from './UserInfoBar';
 
 const StyledSegment = glamorous(Segment)({
     minHeight: '15em',
@@ -24,10 +26,15 @@ type Props = {
     title: string,
     placeholder?: string,
     dispatch: Dispatch,
-    loading: boolean
+    loading: boolean,
+    hasUser: boolean
 };
 
-class AppHeader extends Component<Props>{
+type State = {
+    username: ?string
+};
+
+class AppHeader extends Component<Props, State>{
     static defaultProps = {
         placeholder: null
     };
@@ -70,25 +77,32 @@ class AppHeader extends Component<Props>{
                     <Container text>
                         <Header inverted as="h2">{ title }</Header>
                         <Input
-                            icon="users"
                             fluid
+                            icon="users"
                             action='Go'
                             inverted
-                            onKeyPress={ this.handleKeyPress }
+                            loading={loading}
                             onChange={ this.handleChange }
+                            onKeyPress={ this.handleKeyPress }
                             placeholder={ placeholder }
                             iconPosition='left'
-                            loading={loading}
                         />
                     </Container>
                 </StyledSegment>
+
+                {
+                    this.props.hasUser
+                        ? <UserInfoBar />
+                        : null
+                }
             </header>
         );
     }
 }
 
 const mapStateToProps = (state: Object) => ({
-    loading: isLoading(state)
+    loading: isLoading(state),
+    hasUser: hasUser(state)
 });
 
 // $FlowFixMe
