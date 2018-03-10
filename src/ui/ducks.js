@@ -34,7 +34,7 @@ export const UI__TOGGLE_LOADING = 'UI.TOGGLE.IS.LOADING';
 
 export default (prevUIState: State = defaultState, action: FSAModel): State => {
     // Error-to-UI handling
-    if(prevUIState != undefined){
+    if(prevUIState !== defaultState){
         if(action.error){
             const { payload: { data = null } = {} } = action;
 
