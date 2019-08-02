@@ -1,20 +1,20 @@
 // @flow
 import React, { Component, type Element } from 'react';
 import {
-    Container,
-    Header,
-    Icon,
     Menu,
+    Icon,
+    Input,
+    Header,
     Segment,
-    Input
+    Container
 } from 'semantic-ui-react';
 import glamorous from 'glamorous';
 import { connect } from 'react-redux';
 
-import { hasUser } from 'user/selectors';
-import { getStarredRepos } from 'repos/ducks';
-import { isLoading } from 'ui/selectors';
 import UserInfoBar from './UserInfoBar';
+import { hasUser } from 'user/selectors';
+import { isLoading } from 'ui/selectors';
+import { getStarredRepos } from 'repos/ducks';
 
 const StyledSegment = glamorous(Segment)({
     minHeight: '15em',
